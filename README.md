@@ -85,7 +85,6 @@ $ make install
 <ul>
 Supported Languages:
 <li><input checked="" disabled="" type="checkbox"> Portuguese </li>
-<li><input disabled="" type="checkbox"> English</li>
 </ul>
 </ul>
 
@@ -98,6 +97,12 @@ The project was created using [Code Block](http://www.codeblocks.org/), so the b
 ### Using on Linux
 
 An Linux version is comming soon
+
+**How to build?**
+
+```shell
+$ gcc main.c `pkg-config --cflags --libs sdl2` -o main
+```
 
 ---
 

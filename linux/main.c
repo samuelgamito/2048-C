@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-#include<windows.h>
 #include<SDL.h>
 #include<SDL_image.h>
 #include"jogo.h"
@@ -66,10 +65,10 @@ int main(int argc, char **argv){
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     screen = SDL_GetWindowSurface(window);
     //Carregando Backgrounds
-    homeBg = SDL_LoadBMP("home.bmp"); // Carrega o background da home (1)
-    jogoBg = SDL_LoadBMP("jogo.bmp"); // Carrega o background do jogo (2)
-    winBg = SDL_LoadBMP("win.bmp"); // Carrega o background de quando vence (3)
-    loseBg = SDL_LoadBMP("lose.bmp"); // Carrega o background de quando perde (4)
+    homeBg = SDL_LoadBMP("_img/home.bmp"); // Carrega o background da home (1)
+    jogoBg = SDL_LoadBMP("_img/jogo.bmp"); // Carrega o background do jogo (2)
+    winBg = SDL_LoadBMP("_img/win.bmp"); // Carrega o background de quando vence (3)
+    loseBg = SDL_LoadBMP("_img/lose.bmp"); // Carrega o background de quando perde (4)
     trocaTela(homeBg,screen);
 
 
@@ -88,9 +87,9 @@ int main(int argc, char **argv){
                 running = 0;
                 break;
             case SDL_MOUSEBUTTONDOWN:
-                SDL_GetMouseState(                    // Define as variaveis com a posi��o
-                    &mousePos.x,                //Coordenadas    mouse (x)
-                    &mousePos.y                 //            do        (y)
+                SDL_GetMouseState(  // Define as variaveis com a posi��o
+                    &mousePos.x,    // Coordenadas    mouse (x)
+                    &mousePos.y     // do (y)
                 );
                 if(event.button.button == SDL_BUTTON_LEFT){
                     if(SDL_EnclosePoints(&mousePos,1,&iniciar, NULL)){
@@ -149,8 +148,7 @@ int main(int argc, char **argv){
                 }
             }
 
-            while( SDL_PollEvent( &event ) != 0 )
-            {
+            while( SDL_PollEvent( &event ) != 0 ){
 					//User requests quit
 					if( event.type == SDL_QUIT )
 					{
@@ -184,24 +182,26 @@ int main(int argc, char **argv){
 
             }
             if( change == FALSE && tabuleiro.movimentos > 0){
+                
                 SDL_Delay(600);
-                win = TRUE;
-                game = FALSE;
                 trocaTela(winBg, screen);
-                telaAtual = WIN;
                 salvaScore(&tabuleiro);
                 printf("Fim do jogo\n Movimento: %d", tabuleiro.movimentos);
-
+                telaAtual = WIN;
+                win = TRUE;
+                game = FALSE;
+                running = FALSE;
 
             }else if(change == -3){
-                printf("\n\n\tdeu ruim");
                 trocaTela(loseBg, screen);
+                SDL_Delay(600);
+                running = FALSE;
                 game = FALSE;
-                win=FALSE;
+                win= FALSE;
                 telaAtual = LOSE;
                 zeraTab(&tabuleiro);
                 iniciaTab = ZERADO;//indica q no proximo jogo n�o precisa inicializar o tabuleiro mas precisa colocar as pe�as
-                printf("n�o h� mais movimento");
+                printf("nao ha mais movimento");
 
             }
         }
@@ -209,7 +209,6 @@ int main(int argc, char **argv){
     }
     //Fechando
     SDL_Quit();
-
     return 0;
 
 }
@@ -220,11 +219,10 @@ void salvaScore(Jogo* tabuleiro){
 
     arquivo = fopen("ranking.txt", "a");
     if (arquivo == NULL){
-        printf("\nN�o foi poss�vel abrir o arquivo\n");
-        exit(0);
+        printf("\nNao foi possivel abrir o arquivo\n");
     } else {
-        printf("\nVoc� Venceu!! Digite o seu nome(max 20 caract.):\n");
-        scanf("%s", &nomeAtual);
+        printf("\nVoce Venceu!! Digite o seu nome(max 20 caract.):\n");
+        scanf("%s", nomeAtual);
     }
     //chamar a fun��o que calcula a pontua��o e passar aqui no lugar de 'movimentos'
     fprintf(arquivo,"%s...%d\n",nomeAtual,tabuleiro->movimentos);
@@ -337,7 +335,9 @@ int criaTabuleiro(Jogo* tabuleiro, int carregaTab){
             return -1;
         }
     }
+
     tabuleiro->matriz[0][0] = tabuleiro->matriz[0][1] = 1024;
+
     return 0;
 }
 /************************************************************
@@ -354,18 +354,18 @@ void criaPecas(SDL_Surface* imagens[12]) {
             pecas[j][i].y = j*99 + j*14;
         }
     }
-    imagens[0] = SDL_LoadBMP("../2048__/0.bmp");
-    imagens[1] = SDL_LoadBMP("../2048__/1.bmp");
-    imagens[2] = SDL_LoadBMP("../2048__/2.bmp");
-    imagens[3] = SDL_LoadBMP("../2048__/3.bmp");
-    imagens[4] = SDL_LoadBMP("../2048__/4.bmp");
-    imagens[5] = SDL_LoadBMP("../2048__/5.bmp");
-    imagens[6] = SDL_LoadBMP("../2048__/6.bmp");
-    imagens[7] = SDL_LoadBMP("../2048__/7.bmp");
-    imagens[8] = SDL_LoadBMP("../2048__/8.bmp");
-    imagens[9] = SDL_LoadBMP("../2048__/9.bmp");
-    imagens[10] = SDL_LoadBMP("../2048__/10.bmp");
-    imagens[11] = SDL_LoadBMP("../2048__/11.bmp");
+    imagens[0] = SDL_LoadBMP("_img/0.bmp");
+    imagens[1] = SDL_LoadBMP("_img/1.bmp");
+    imagens[2] = SDL_LoadBMP("_img/2.bmp");
+    imagens[3] = SDL_LoadBMP("_img/3.bmp");
+    imagens[4] = SDL_LoadBMP("_img/4.bmp");
+    imagens[5] = SDL_LoadBMP("_img/5.bmp");
+    imagens[6] = SDL_LoadBMP("_img/6.bmp");
+    imagens[7] = SDL_LoadBMP("_img/7.bmp");
+    imagens[8] = SDL_LoadBMP("_img/8.bmp");
+    imagens[9] = SDL_LoadBMP("_img/9.bmp");
+    imagens[10] = SDL_LoadBMP("_img/10.bmp");
+    imagens[11] = SDL_LoadBMP("_img/11.bmp");
 
 }
 /***************************************************
@@ -375,7 +375,7 @@ void criaPecas(SDL_Surface* imagens[12]) {
 
 void imprimeTabuleiro(Jogo* tabuleiro){
     int i,j;
-    system("cls");
+    system("clear");
     for(i=0; i<tabuleiro->tamanho; i++){
         for(j=0; j<tabuleiro->tamanho; j++){
             printf(" [%d] ",tabuleiro->matriz[i][j]);
@@ -450,8 +450,8 @@ bool carregaImagens(Jogo* tabuleiro, SDL_Surface* imagens[12]){
 
             if (pecas[i][j].img == NULL && tabuleiro->matriz[i][j] != 0){
                 success = false;
-                printf("A matriz est� com valor %d\n",tabuleiro->matriz[i][j]);
-                printf("N�o foi poss�vel carregar a peca. Erro %s: \n",  SDL_GetError());
+                printf("A matriz esta com valor %d\n",tabuleiro->matriz[i][j]);
+                printf("Nao foi possivel carregar a peca. Erro %s: \n",  SDL_GetError());
             }
         }
     }
