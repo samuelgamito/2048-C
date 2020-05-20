@@ -7,9 +7,10 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 
-***Insert game screen***
 
-**Insert Game gif**
+![Menu Screen](readme-files/menu.png)
+
+![Recordit GIF](readme-files/game_play.gif)
 
 ---
 

@@ -182,9 +182,8 @@ int main(int argc, char **argv){
 
             }
             if( change == FALSE && tabuleiro.movimentos > 0){
-                
-                SDL_Delay(600);
                 trocaTela(winBg, screen);
+                SDL_Delay(600);
                 salvaScore(&tabuleiro);
                 printf("Fim do jogo\n Movimento: %d", tabuleiro.movimentos);
                 telaAtual = WIN;
@@ -335,8 +334,6 @@ int criaTabuleiro(Jogo* tabuleiro, int carregaTab){
             return -1;
         }
     }
-
-    tabuleiro->matriz[0][0] = tabuleiro->matriz[0][1] = 1024;
 
     return 0;
 }
